@@ -9,3 +9,10 @@ spring:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.MySQLDialect
+
+finnhub:
+  api:
+    key: cqoqmf1r01qqj5dmd2f0cqoqmf1r01qqj5dmd2fg
+  base:
+    url: https://finnhub.io/api/v1
+
