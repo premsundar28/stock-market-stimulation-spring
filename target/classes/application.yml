@@ -16,3 +16,7 @@ finnhub:
   base:
     url: https://finnhub.io/api/v1
 
+app:
+  security:
+    jwtSecret: appSecretKey
+    jwtExpirationMs: 3600000

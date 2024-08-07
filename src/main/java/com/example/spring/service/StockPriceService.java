@@ -19,7 +19,8 @@ public class StockPriceService {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);
             try (CloseableHttpResponse response = client.execute(request)) {
-                return EntityUtils.toString(response.getEntity());
+                String jsonResponse = EntityUtils.toString(response.getEntity());
+                return jsonResponse;
             }
         }
     }
