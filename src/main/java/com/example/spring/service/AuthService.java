@@ -11,6 +11,7 @@ import com.example.spring.dto.response.JwtResponse;
 import com.example.spring.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,6 +35,8 @@ public class AuthService {
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
     private final SignupRequestMapper signupRequestMapper;
+    @Autowired
+    private CurrentUserService currentUserService;
 
     /**
      * Authenticates users by their credentials
@@ -49,6 +52,8 @@ public class AuthService {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         final UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        currentUserService.setCurrentUser(userDetails);
+
         final List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .toList();

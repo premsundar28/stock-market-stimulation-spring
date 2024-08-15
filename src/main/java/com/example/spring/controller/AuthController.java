@@ -1,15 +1,21 @@
 package com.example.spring.controller;
 
+import com.example.spring.Security.UserDetailsImpl;
 import com.example.spring.dto.request.LoginRequest;
 import com.example.spring.dto.request.SignupRequest;
 import com.example.spring.dto.response.ApiResponse;
 import com.example.spring.dto.response.CommandResponse;
+import com.example.spring.dto.response.CurrentUser;
 import com.example.spring.dto.response.JwtResponse;
 import com.example.spring.service.AuthService;
+import com.example.spring.service.CurrentUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.time.Clock;
 import java.time.Instant;
@@ -25,6 +31,8 @@ public class AuthController {
 
     private final Clock clock;
     private final AuthService authService;
+    private final CurrentUserService currentUserService;
+
 
     /**
      * Authenticates users by their credentials
@@ -51,4 +59,11 @@ public class AuthController {
                 .status(HttpStatus.CREATED)
                 .body(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
+
+
+    @GetMapping("/current")
+    public CurrentUser getCurrentUser() {
+        return currentUserService.getCurrentUser();
+    }
+
 }
