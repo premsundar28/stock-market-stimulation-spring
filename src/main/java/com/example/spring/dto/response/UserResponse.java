@@ -16,5 +16,6 @@ public class UserResponse {
     private String username;
     private String email;
     private String fullName;
+    private Double available_funds;
     private Set<RoleResponse> roles;
 }

@@ -1,4 +1,4 @@
-package com.example.spring.Repository;
+package com.example.spring.repository;
 
 import com.example.spring.entity.Role;
 import com.example.spring.entity.RoleType;

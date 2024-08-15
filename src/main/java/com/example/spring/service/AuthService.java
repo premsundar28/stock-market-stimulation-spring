@@ -1,6 +1,6 @@
 package com.example.spring.service;
 
-import com.example.spring.Repository.UserRepository;
+import com.example.spring.repository.UserRepository;
 import com.example.spring.Security.JwtUtils;
 import com.example.spring.Security.UserDetailsImpl;
 import com.example.spring.dto.mapper.SignupRequestMapper;

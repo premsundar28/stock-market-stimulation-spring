@@ -30,6 +30,8 @@ public class UserDetailsImpl implements UserDetails {
 
     private String lastName;
 
+    private Double availableFunds;
+
     private Collection<? extends GrantedAuthority> authorities;
 
     public static UserDetailsImpl build(User user) {
@@ -43,6 +45,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getPassword(),
                 user.getFirstName(),
                 user.getLastName(),
+                user.getAvailable_funds(),
                 authorities);
     }
 

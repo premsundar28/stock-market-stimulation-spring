@@ -1,10 +1,12 @@
 package com.example.spring.service;
+
 import com.example.spring.config.FinnhubConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,8 @@ public class StockPriceService {
             HttpGet request = new HttpGet(url);
             try (CloseableHttpResponse response = client.execute(request)) {
                 String jsonResponse = EntityUtils.toString(response.getEntity());
-                return jsonResponse;
+                JSONObject jsonObject = new JSONObject(jsonResponse);
+                return jsonObject.get("c").toString();
             }
         }
     }

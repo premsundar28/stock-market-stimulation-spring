@@ -1,7 +1,6 @@
 package com.example.spring.Security;
 
-import com.example.spring.Repository.UserRepository;
-import com.example.spring.Security.UserDetailsImpl;
+import com.example.spring.repository.UserRepository;
 import com.example.spring.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

@@ -9,29 +9,23 @@ import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 
 /**
  * Mapper used for mapping SignupRequest fields
  */
-@Mapper(componentModel = "spring",
-        uses = {PasswordEncoder.class, RoleService.class},
-        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+@Mapper(componentModel = "spring", uses = {PasswordEncoder.class, RoleService.class, User.class})
 public abstract class SignupRequestMapper {
 
+    Double ZERO = 0.0;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private RoleService roleService;
-
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    @Autowired
-    public void setRoleService(RoleService roleService) {
-        this.roleService = roleService;
-    }
 
     @Mapping(target = "firstName", expression = "java(org.apache.commons.text.WordUtils.capitalizeFully(dto.getFirstName()))")
     @Mapping(target = "lastName", expression = "java(org.apache.commons.text.WordUtils.capitalizeFully(dto.getLastName()))")
@@ -39,6 +33,7 @@ public abstract class SignupRequestMapper {
     @Mapping(target = "email", expression = "java(dto.getEmail().trim().toLowerCase())")
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "available_funds", source = "available_funds")
     public abstract User toEntity(SignupRequest dto);
 
     @AfterMapping
@@ -50,5 +45,10 @@ public abstract class SignupRequestMapper {
                 .toList();
         final List<Role> roles = roleService.getReferenceByTypeIsIn(new HashSet<>(roleTypes));
         entity.setRoles(new HashSet<>(roles));
+
+        // Set default value for availableFunds if necessary
+        if (dto.getAvailable_funds() == null) {
+            entity.setAvailable_funds(ZERO); // or whatever default value you need
+        }
     }
 }

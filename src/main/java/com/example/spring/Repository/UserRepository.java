@@ -1,4 +1,4 @@
-package com.example.spring.Repository;
+package com.example.spring.repository;
 
 
 

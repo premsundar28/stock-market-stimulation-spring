@@ -1,6 +1,6 @@
 package com.example.spring.service;
 
-import com.example.spring.Repository.RoleRepository;
+import com.example.spring.repository.RoleRepository;
 import com.example.spring.entity.Role;
 import com.example.spring.entity.RoleType;
 import lombok.RequiredArgsConstructor;

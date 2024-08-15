@@ -42,6 +42,9 @@ public class User {
     @Column(length = 100, nullable = false)
     private String password;
 
+    @Column(name = "available_funds",length = 100, nullable = false)
+    private Double available_funds;
+
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false),

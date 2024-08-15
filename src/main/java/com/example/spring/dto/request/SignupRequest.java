@@ -37,5 +37,8 @@ public class SignupRequest {
     @NotBlank(message = "password.notblank}")
     private String password;
 
+
+    private Double available_funds;
+
     private Set<String> roles;
 }

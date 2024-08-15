@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-07T11:30:21+0530",
+    date = "2024-08-15T08:13:55+0530",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 21.0.1 (Oracle Corporation)"
 )
 @Component
@@ -21,6 +21,7 @@ public class SignupRequestMapperImpl extends SignupRequestMapper {
 
         User user = new User();
 
+        user.setAvailable_funds( dto.getAvailable_funds() );
         user.setId( dto.getId() );
 
         user.setFirstName( org.apache.commons.text.WordUtils.capitalizeFully(dto.getFirstName()) );
