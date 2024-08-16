@@ -28,6 +28,9 @@ public class Share {
     @Column(name = "current_price", nullable = false)
     private float currentPrice;
 
+    @Column(name = "returns", nullable = false)
+    private float returns;
+
     @ManyToOne
     @JoinColumn(name = "demat_account_id", nullable = false)
     private DematAccount dematAccount; // Updated field to link to DematAccount

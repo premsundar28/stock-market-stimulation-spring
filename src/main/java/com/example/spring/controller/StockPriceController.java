@@ -1,17 +1,22 @@
 package com.example.spring.controller;
 
 import com.example.spring.dto.request.BuyStockRequest;
+import com.example.spring.dto.request.UpdateStock;
 import com.example.spring.service.StockPurchaseService;
+import com.example.spring.service.UpdatePriceService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.spring.service.StockPriceService;
 
 @RestController
 @RequestMapping("/stock")
+@RequiredArgsConstructor
 public class StockPriceController {
 
-    @Autowired
-    private StockPriceService stockPriceService;
+
+    final private StockPriceService stockPriceService;
+    final private UpdatePriceService updatePriceService;
 
 
     @Autowired
@@ -33,5 +38,10 @@ public class StockPriceController {
         } catch (Exception e) {
             return "Error purchasing stock: " + e.getMessage();
         }
+    }
+
+    @PostMapping("/updatePrice")
+    public void updatePrice(@RequestBody UpdateStock updateStock) throws Exception {
+        updatePriceService.updateStockPrice(updateStock);
     }
 }
