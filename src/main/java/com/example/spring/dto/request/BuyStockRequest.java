@@ -6,5 +6,4 @@ import lombok.Data;
 public class BuyStockRequest {
     private String symbol;
     private int numberOfShares;
-    private String dematNumber;
 }

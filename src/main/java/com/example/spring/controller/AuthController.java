@@ -1,6 +1,6 @@
 package com.example.spring.controller;
 
-import com.example.spring.Security.UserDetailsImpl;
+import com.example.spring.Security.DematAccountService;
 import com.example.spring.dto.request.LoginRequest;
 import com.example.spring.dto.request.SignupRequest;
 import com.example.spring.dto.response.ApiResponse;
@@ -9,14 +9,14 @@ import com.example.spring.dto.response.CurrentUser;
 import com.example.spring.dto.response.JwtResponse;
 import com.example.spring.service.AuthService;
 import com.example.spring.service.CurrentUserService;
+import com.example.spring.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.PrivateKey;
 import java.time.Clock;
 import java.time.Instant;
 
@@ -32,6 +32,8 @@ public class AuthController {
     private final Clock clock;
     private final AuthService authService;
     private final CurrentUserService currentUserService;
+    private final UserService UserService;
+    private final DematAccountService dematAccountService;
 
 
     /**
@@ -61,9 +63,21 @@ public class AuthController {
     }
 
 
-    @GetMapping("/current")
+    @GetMapping("/currentUser")
     public CurrentUser getCurrentUser() {
         return currentUserService.getCurrentUser();
     }
+
+
+    @GetMapping("/current")
+    public String getDematNumberForCurrentUser() {
+        try{
+            String demat = dematAccountService.getDematAccountByUsername(currentUserService.getCurrentUser().getUsername());
+            return  demat;
+        }catch (Exception e){
+            return "please login";
+        }
+    }
+
 
 }

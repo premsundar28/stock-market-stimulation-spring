@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.spring.service.StockPriceService;
 
 @RestController
+@RequestMapping("/stock")
 public class StockPriceController {
 
     @Autowired
@@ -16,7 +17,7 @@ public class StockPriceController {
     @Autowired
     private StockPurchaseService stockPurchaseService;
 
-    @GetMapping("/stock/{symbol}")
+    @GetMapping("{symbol}")
     public String getStockPrice(@PathVariable String symbol) {
         try {
             return stockPriceService.getStockPrice(symbol);

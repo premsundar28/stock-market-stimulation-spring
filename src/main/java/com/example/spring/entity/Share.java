@@ -1,13 +1,7 @@
 package com.example.spring.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "share")
 @Data
 @NoArgsConstructor
+@Transactional
 public class Share {
 
     @Id
@@ -35,5 +30,5 @@ public class Share {
 
     @ManyToOne
     @JoinColumn(name = "demat_account_id", nullable = false)
-    private DematAccount dematAccount;
+    private DematAccount dematAccount; // Updated field to link to DematAccount
 }

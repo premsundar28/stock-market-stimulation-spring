@@ -1,9 +1,11 @@
 package com.example.spring.entity;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +13,7 @@ import java.util.Set;
 @Table(name = "demat_account")
 @Data
 @NoArgsConstructor
+@Transactional
 public class DematAccount {
 
     @Id
@@ -26,6 +29,6 @@ public class DematAccount {
     @JoinColumn(name = "user_id", nullable = false)
     private User accountHolder;
 
-    @OneToMany(mappedBy = "dematAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "dematAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Share> shares = new HashSet<>();
 }

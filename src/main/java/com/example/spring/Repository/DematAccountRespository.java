@@ -7,5 +7,7 @@ import java.util.Optional;
 
 public interface DematAccountRespository extends JpaRepository<DematAccount,String> {
 
-    Optional<DematAccount> findByDematNumber(String dematNumber);
+    DematAccount findByDematNumber(String dematNumber);
+
+    DematAccount findByAccountHolderUsername(String username);
 }
