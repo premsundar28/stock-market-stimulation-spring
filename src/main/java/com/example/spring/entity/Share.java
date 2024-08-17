@@ -5,6 +5,8 @@ import jakarta.transaction.Transactional;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "share")
 @Data
@@ -30,6 +32,9 @@ public class Share {
 
     @Column(name = "returns", nullable = false)
     private float returns;
+
+    @Column(name = "date_time", nullable = false)
+    private LocalDateTime localDateTime;
 
     @ManyToOne
     @JoinColumn(name = "demat_account_id", nullable = false)

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -54,6 +56,7 @@ public class StockPurchaseService {
         share.setCurrentPrice(currentPrice);
         share.setDematAccount(dematAccount);
         share.setReturns(0.0f);
+        share.setLocalDateTime(LocalDateTime.now());
 
 
         dematAccountRespository.save(dematAccount);
