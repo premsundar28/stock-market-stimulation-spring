@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,5 +32,5 @@ public class DematAccount {
     private User accountHolder;
 
     @OneToMany(mappedBy = "dematAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Share> shares = new HashSet<>();
+    private List<Share> shares = new ArrayList<>();
 }

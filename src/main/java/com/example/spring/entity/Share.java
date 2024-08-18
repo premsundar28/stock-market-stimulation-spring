@@ -18,7 +18,7 @@ public class Share {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "share_name", nullable = false, length = 100, unique = true)
+    @Column(name = "share_name", nullable = false, length = 100)
     private String shareName;
 
     @Column(name = "number_of_shares", nullable = false)
@@ -26,9 +26,6 @@ public class Share {
 
     @Column(name = "bought_price", nullable = false)
     private float boughtPrice;
-
-    @Column(name = "current_price", nullable = false)
-    private float currentPrice;
 
     @Column(name = "returns", nullable = false)
     private float returns;

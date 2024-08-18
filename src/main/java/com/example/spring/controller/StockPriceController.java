@@ -1,7 +1,9 @@
 package com.example.spring.controller;
 
 import com.example.spring.dto.request.BuyStockRequest;
+import com.example.spring.dto.request.CurrentPriceRequest;
 import com.example.spring.dto.request.UpdateStock;
+import com.example.spring.entity.CurrentPrice;
 import com.example.spring.service.StockPurchaseService;
 import com.example.spring.service.UpdatePriceService;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +43,13 @@ public class StockPriceController {
     }
 
     @PostMapping("/updatePrice")
-    public void updatePrice(@RequestBody UpdateStock updateStock) throws Exception {
-        updatePriceService.updateStockPrice(updateStock);
+    public String updatePrice(@RequestBody CurrentPriceRequest currentPriceRequest) throws Exception {
+        try{
+            updatePriceService.updateStockPrice(currentPriceRequest);
+            return "successfully updated current price";
+        }catch( Exception e){
+            return "please try again";
+        }
+
     }
 }

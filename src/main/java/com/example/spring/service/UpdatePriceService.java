@@ -1,34 +1,39 @@
 package com.example.spring.service;
 
-import com.example.spring.dto.request.UpdateStock;
-import com.example.spring.entity.Share;
-import com.example.spring.repository.ShareRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.spring.repository.CurrentPriceRepository ;
+import com.example.spring.dto.request.CurrentPriceRequest;
+import com.example.spring.entity.CurrentPrice;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.example.spring.repository.ShareRepository;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UpdatePriceService {
 
-    private final ShareRepository repository;
+    private final CurrentPriceRepository currentPriceRepository;
     private final StockPriceService stockPriceService;
+    private final ShareRepository shareRepository;
 
-    @Autowired
-    public UpdatePriceService(ShareRepository repository, StockPriceService stockPriceService) {
-        this.repository = repository;
-        this.stockPriceService = stockPriceService;
-    }
+    public void updateStockPrice(CurrentPriceRequest currentPriceRequest) throws Exception {
+        String stock_name = currentPriceRequest.getStock_name();
+        Float currentPrice = Float.parseFloat(stockPriceService.getStockPrice(stock_name));
 
-    public void updateStockPrice(UpdateStock updateStock) throws Exception {
-        Share updatedShare = repository.findByShareName(updateStock.getShareName());
-        if (updatedShare != null) {
-            updatedShare.setCurrentPrice(Float.parseFloat(stockPriceService.getStockPrice(updateStock.getShareName())));
-            updatedShare.setReturns(updatedShare.getBoughtPrice() - updatedShare.getCurrentPrice());
-            repository.save(updatedShare);  // Save the updated share to the repository
-        } else {
-            // Handle the case where the share is not found
-            throw new RuntimeException("Share not found: " + updateStock.getShareName());
+        // Retrieve the existing CurrentPrice entity by stock symbol
+        CurrentPrice existingPrice = currentPriceRepository.findByStockName(stock_name);
+
+        if (existingPrice == null) {
+            // If no existing entry is found, create a new CurrentPrice entity
+            existingPrice = new CurrentPrice();
+            existingPrice.setStockName(stock_name);
         }
+
+        // Update the price of the existing or new entity
+        existingPrice.setCurrentPrice(currentPrice);
+
+        // Save the updated entity
+        currentPriceRepository.save(existingPrice);
     }
 }

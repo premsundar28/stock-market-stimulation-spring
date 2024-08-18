@@ -53,7 +53,6 @@ public class StockPurchaseService {
         share.setShareName(request.getSymbol());
         share.setNumberOfShares(request.getNumberOfShares());
         share.setBoughtPrice(currentPrice);
-        share.setCurrentPrice(currentPrice);
         share.setDematAccount(dematAccount);
         share.setReturns(0.0f);
         share.setLocalDateTime(LocalDateTime.now());
